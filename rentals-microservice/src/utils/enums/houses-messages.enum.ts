@@ -1,0 +1,7 @@
+
+export enum HousesMessages {
+    CREATE_HOUSE='CREATE_HOUSE',
+    GET_HOUSES='GET_HOUSES',
+    GET_HOUSE_BY_ID='GET_HOUSE_BY_ID',
+    DELETE_HOUSE='DELETE_HOUSE'
+}

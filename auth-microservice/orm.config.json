@@ -1,0 +1,15 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5001,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "auth-microservice-db",
+  "synchronize": false,
+  "entities": ["src/**/**/*.entity{.js,.ts}"],
+  "migrationsTableName": "migrations",
+  "migrations": ["migrations/*{.js,.ts}"],
+  "cli": {
+    "migrationsDir": "migrations"
+  }
+}

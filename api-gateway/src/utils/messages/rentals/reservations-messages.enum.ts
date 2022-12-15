@@ -1,0 +1,5 @@
+
+export enum ReservationsMessages {
+    GET_RESERVATIONS='GET_RESERVATIONS',
+    CREATE_RESERVATION='CREATE_RESERVATION'
+}

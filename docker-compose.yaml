@@ -1,0 +1,110 @@
+version: "3.8"
+
+services:
+    auth-microservice-db:
+        image: postgres
+        container_name: auth-microservice-db
+        ports:
+            - 5001:5432
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_DB: auth-microservice-db
+        volumes:
+            - ./auth-microservice/local-data-db/postgres:/var/lib/postgresql
+        networks:
+            - ms_nestjs
+
+    discounts-management-microservice-db:
+        image: postgres
+        container_name: discounts-management-microservice-db
+        restart: always
+        ports:
+            - 5002:5432
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_DB: discounts-microservice-db
+        volumes:
+            - ./discounts-management-microservice/local-data-db/postgres:/var/lib/postgresql
+        networks:
+            - ms_nestjs
+
+    rentals-microservice-db:
+        image: postgres
+        container_name: rentals-microservice-db
+        restart: always
+        ports:
+            - 5003:5432
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_DB: rentals-microservice-db
+        volumes:
+            - ./rentals-microservice/local-data-db/postgres:/var/lib/postgresql
+        networks:
+            - ms_nestjs
+
+    api-gateway:
+        image: api-gateway:v1
+        container_name: api-gateway
+        build:
+            context: ./api-gateway
+            dockerfile: Dockerfile
+        env_file: .env
+        ports:
+            - 4001:4001
+        depends_on:
+            - auth-microservice-db
+            - discounts-management-microservice-db
+            - rentals-microservice-db
+        restart: always
+        networks:
+            - ms_nestjs
+
+    auth-microservice:
+        image: auth-microservice:v1
+        container_name: auth-microservice
+        build:
+            context: ./auth-microservice
+            dockerfile: Dockerfile
+        env_file: .env
+        depends_on:
+            - auth-microservice-db
+        restart: always
+        networks:
+            - ms_nestjs
+
+    discounts-management-microservice:
+        image: discounts-management-microservice:v1
+        container_name: discounts-management-microservice
+        build:
+            context: ./discounts-management-microservice
+            dockerfile: Dockerfile
+        env_file: .env
+        depends_on:
+            - discounts-management-microservice-db
+        restart: always
+        networks:
+            - ms_nestjs
+
+    rentals-microservice:
+        image: rentals-microservice:v1
+        container_name: rentals-microservice
+        build:
+            context: ./rentals-microservice
+            dockerfile: Dockerfile
+        env_file: .env
+        depends_on:
+            - rentals-microservice-db
+        restart: always
+        networks:
+            - ms_nestjs
+
+volumes:
+    auth-microservice-db:
+    discounts-management-microservice-db:
+    rentals-microservice-db:
+
+networks:
+    ms_nestjs:
