@@ -1,18 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ReservationRepository } from 'src/database/src/repositories/reservations';
+import { Reservation } from 'src/database/entities';
 import { HousesModule } from '../houses';
 import { ReservationsController } from './reservations.controller';
 import { ReservationsService } from './reservations.service';
 
 @Module({
-  imports:[
-    TypeOrmModule.forFeature([
-      ReservationRepository
-    ]),
-    HousesModule
-  ],
+  imports: [TypeOrmModule.forFeature([Reservation]), HousesModule],
   controllers: [ReservationsController],
-  providers: [ReservationsService]
+  providers: [ReservationsService],
 })
 export class ReservationsModule {}
