@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { House } from 'src/database/src/entities';
-import { IHouse } from 'src/database/src/interfaces/houses';
+import { House } from 'src/database/entities';
+import { IHouse } from 'src/database/interfaces/houses';
+
 import { Repository } from 'typeorm';
 import { ICreateHouse } from './interfaces/input';
 import { IDeleteHouseResponse } from './interfaces/output/delete-house-response.interface';
